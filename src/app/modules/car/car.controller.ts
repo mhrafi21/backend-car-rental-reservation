@@ -3,6 +3,7 @@ import catchAsync from '../../utils/catchAsync'
 import sendResponse from '../../utils/sendResponse'
 import { TCar } from './car.interface'
 import { carServices } from './car.services'
+import { bookingServices } from '../booking/booking.services'
 
 const createCar = catchAsync(async (req, res) => {
   const result = await carServices.createCarIntoDB(req.body as TCar)
@@ -54,4 +55,16 @@ const updateCar = catchAsync(async (req, res) => {
     })
 })
 
-export const carController = { createCar, getAllCar, getSingleCar,updateCar,deleteCar }
+const updateBookingCar = catchAsync(async(req,res) => {
+  const {bookingId, endTime} = req.body;
+
+  const result = await carServices.updateBookingCarIntoDB(bookingId as string, endTime as string)
+  sendResponse(res,{
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Booking updated successfully",
+      data: result
+  })
+})
+
+export const carController = { createCar, getAllCar, getSingleCar,updateCar,deleteCar,updateBookingCar }

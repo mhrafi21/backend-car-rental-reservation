@@ -9,14 +9,13 @@ const bookingSchema = new Schema<TBooking>({
 
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
     required: true,
+    ref: 'User',
   },
-
   car: {
     type: Schema.Types.ObjectId,
-    ref: 'Car',
     required: true,
+    ref: 'Car',
   },
   startTime: {
     type: String,
@@ -31,7 +30,7 @@ const bookingSchema = new Schema<TBooking>({
     type: Number,
     default: 0,
   },
-})
+},{timestamps: true})
 
 
 const BookingModel = mongoose.model<TBooking>("Booking", bookingSchema);

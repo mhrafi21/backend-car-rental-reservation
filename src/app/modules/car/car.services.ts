@@ -1,3 +1,4 @@
+import { bookingModels } from '../booking/booking.model'
 import { TCar } from './car.interface'
 import { carModels } from './car.model'
 
@@ -32,10 +33,22 @@ const deleteCarFromDB = async (id: string) => {
   return result
 }
 
+const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
+    const result = await bookingModels.BookingModel.findByIdAndUpdate(bookingId, {
+      endTime,
+    },{new: true})
+      .populate('user')
+      .populate('car')
+  
+    return result
+  }
+  
+
 export const carServices = {
   createCarIntoDB,
   getAllCarFromDB,
   getSingleCarFromDB,
   updateCarFromDB,
   deleteCarFromDB,
+  updateBookingCarIntoDB
 }
