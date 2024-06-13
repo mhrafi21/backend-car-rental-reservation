@@ -1,34 +1,47 @@
 import { Schema, model } from 'mongoose'
-import { TUser, UserModel } from './user.interface'
+import { TUser } from './user.interface'
 
-const userSchema = new Schema<TUser, UserModel>(
+// const userSchema = new Schema<TUser, UserModel>(
+//   {
+//     id: { type: String, required: true },
+//     password: { type: String, required: true },
+//     needsPasswordChange: { type: String },
+//     role: {
+//       type: String,
+//       enum: ['student', 'faculty', 'admin'],
+//     },
+//     status: {
+//       type: String,
+//       enum: ['in-progress', 'blocked'],
+//       default: 'in-progress',
+//     },
+
+//     isDeleted: { type: Boolean, default: false },
+//   },
+//   { timestamps: true },
+// )
+
+// userSchema.statics.isUserExistsByCustomId = async function(id: string) {
+//   return await User.findOne({id})
+
+// }
+
+// userSchema.statics.isPasswordMatched = async function(password: string) {
+//   return User.findOne({password })
+// }
+
+const userSchema = new Schema<TUser>(
   {
-    id: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    needsPasswordChange: { type: String },
     role: {
       type: String,
-      enum: ['student', 'faculty', 'admin'],
+      enum: ['user', 'admin'],
     },
-    status: {
-      type: String,
-      enum: ['in-progress', 'blocked'],
-      default: 'in-progress',
-    },
-
-    isDeleted: { type: Boolean, default: false },
+    address: { type: String, required: true },
   },
   { timestamps: true },
 )
 
-
-userSchema.statics.isUserExistsByCustomId = async function(id: string) {
-  return await User.findOne({id})
-
-}
-
-userSchema.statics.isPasswordMatched = async function(password: string) {
-  return User.findOne({password })
-}
-
-export const User = model<TUser, UserModel>('User', userSchema)
+export const User = model<TUser>('User', userSchema)
