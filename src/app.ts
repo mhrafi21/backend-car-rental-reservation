@@ -13,7 +13,7 @@ app.use(cors())
 
 // application routes
 
-app.use('/api/v1', router)
+app.use('/api', router)
 
 app.get('/', async (req: Request, res: Response) => {
   Promise.reject()
