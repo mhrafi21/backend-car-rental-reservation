@@ -18,11 +18,11 @@ const getSingleCarFromDB = async (id: string) => {
 }
 
 const updateCarFromDB = async (id: string, payload: TCar) => {
-  const { features, ...carInfo } = payload
+
 
   const result = await carModels.carModel.findByIdAndUpdate(
     id,
-    { new: true,carInfo, runValidators: true },
+    { new: true,payload, runValidators: true },
     
   )
   return result

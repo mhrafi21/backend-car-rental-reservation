@@ -11,5 +11,6 @@ router.post(
   UserController.createUser,
 )
 
-router.post('/login', UserController.loginUser)
+router.post('/login', UserController.loginUser);
+
 export const userRouter = router
