@@ -7,7 +7,6 @@ import { userRouter } from '../modules/user/user.route'
 const router = Router()
 
 const moduleRoutes = [
-
   { path: '/auth', route: userRouter },
   { path: '/cars', route: carRoutes },
   { path: '/bookings', route: bookingRoutes },

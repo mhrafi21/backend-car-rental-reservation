@@ -7,6 +7,14 @@ import { bookingServices } from '../booking/booking.services'
 
 const createCar = catchAsync(async (req, res) => {
   const result = await carServices.createCarIntoDB(req.body as TCar)
+  if(!result){
+    sendResponse(res,{
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    })
+  }
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
@@ -46,25 +54,68 @@ const deleteCar = catchAsync(async (req, res) => {
 })
 
 const updateCar = catchAsync(async (req, res) => {
-    const result = await carServices.updateCarFromDB(req.params.id as string,req.body as TCar);
-    sendResponse(res,{
-        success: true,
-        statusCode: httpStatus.OK,
-        message: 'Car updated successfully successfully',
-        data: result,
-    })
-})
-
-const updateBookingCar = catchAsync(async(req,res) => {
-  const {bookingId, endTime} = req.body;
-  
-  const result = await carServices.updateBookingCarIntoDB(bookingId as string, endTime as string)
-  sendResponse(res,{
-      success: true,
-      statusCode: httpStatus.OK,
-      message: "Booking updated successfully",
-      data: result
+  const result = await carServices.updateCarFromDB(
+    req.params.id as string,
+    req.body as TCar,
+  )
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Car updated successfully successfully',
+    data: result,
   })
 })
 
-export const carController = { createCar, getAllCar, getSingleCar,updateCar,deleteCar,updateBookingCar }
+const updateBookingCar = catchAsync(async (req, res) => {
+  const { bookingId, endTime } = req.body
+  const result = await carServices.updateBookingCarIntoDB(
+    bookingId as string,
+    endTime as string,
+  )
+  if (!result) {
+    sendResponse(res, {
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'Not not found',
+      data: result,
+    })
+  }
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Booking updated successfully',
+    data: result,
+  })
+})
+
+const getAllBookings = catchAsync(async (req, res) => {
+  const result = await bookingServices.getBookingsFromDB()
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  })
+})
+
+const softDeleteCar = catchAsync(async (req, res) => {
+  console.log(req.params.id)
+  const result = await carServices.softDeleteCarFromDB(req.params.id as string)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Car deleted successfully',
+    data: result,
+  })
+})
+
+export const carController = {
+  createCar,
+  getAllCar,
+  getSingleCar,
+  updateCar,
+  deleteCar,
+  updateBookingCar,
+  getAllBookings,
+  softDeleteCar,
+}

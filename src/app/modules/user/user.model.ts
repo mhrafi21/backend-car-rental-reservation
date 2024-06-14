@@ -11,7 +11,7 @@ const userSchema = new Schema<TUser>(
       enum: ['user', 'admin'],
     },
     address: { type: String, required: true },
-    phone: {type: String, required: true}
+    phone: { type: String, required: true },
   },
   { timestamps: true },
 )

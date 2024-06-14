@@ -1,5 +1,4 @@
-
-import  {Types}  from 'mongoose'
+import { Types } from 'mongoose'
 import { z } from 'zod'
 
 const bookingValidationSchema = z.object({
@@ -14,9 +13,12 @@ const bookingValidationSchema = z.object({
       .refine(val => /^([01]\d|2[0-3]):([0-5]\d)$/.test(val), {
         message: 'Invalid time format. Should be HH:MM (24hr format).',
       }),
-    endTime: z.string().refine(val => /^([01]\d|2[0-3]):([0-5]\d)$/.test(val), {
-      message: 'Invalid time format. Should be HH:MM (24hr format).',
-    }).default("null"),
+    endTime: z
+      .string()
+      .refine(val => /^([01]\d|2[0-3]):([0-5]\d)$/.test(val), {
+        message: 'Invalid time format. Should be HH:MM (24hr format).',
+      })
+      .default('null'),
     totalCost: z.number().nonnegative().default(0).optional(),
   }),
 })

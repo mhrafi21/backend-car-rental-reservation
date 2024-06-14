@@ -1,22 +1,40 @@
+import { TUser, TUserRole } from './../user/user.interface'
 import express from 'express'
 
 import validateRequest from '../../middlewares/validateRequest'
 import { carController } from './car.controller'
 import { carValidation } from './car.validation'
-import { bookingControllers } from '../booking/booking.controller'
+
+import { USER_ROLE } from '../user/user.constant'
+import { auth } from '../Auth/auth'
 
 const router = express.Router()
 
-router.post('/', validateRequest(carValidation.carValidationSchema), carController.createCar);
+router.post(
+  '/',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  validateRequest(carValidation.carValidationSchema),
+  carController.createCar,
+)
 
-router.get('/', carController.getAllCar);
+router.get('/', carController.getAllCar)
 
-router.get('/:id', carController.getSingleCar);
+router.get('/:id', carController.getSingleCar)
 
-router.put("/:id", carController.updateCar)
+router.put('/:id', auth(USER_ROLE.ADMIN as TUserRole), carController.updateCar)
 
-router.delete("/:id", carController.deleteCar)
+router.delete('/:id', carController.deleteCar)
 
-router.put("/return", carController.updateBookingCar);
+router.patch( 
+  '/return',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  carController.updateBookingCar,
+)
 
-export const carRoutes = router;
+router.delete(
+  '/:id',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  carController.softDeleteCar,
+)
+
+export const carRoutes = router

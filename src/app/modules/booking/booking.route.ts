@@ -2,15 +2,24 @@ import express from 'express'
 import { bookingControllers } from './booking.controller'
 import validateRequest from '../../middlewares/validateRequest'
 import { bookingValidation } from './booking.validation'
+import { USER_ROLE } from '../user/user.constant'
+import { auth, authUser } from '../Auth/auth'
+import { TUserRole } from '../user/user.interface'
 const router = express.Router()
 
 router.post(
   '/',
+  authUser(USER_ROLE.USER as TUserRole),
 
   bookingControllers.createBooking,
 )
 
-router.get("/", bookingControllers.getBookings);
+router.get(
+  '/',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  bookingControllers.getBookings,
+)
 
+router.get("/my-bookings", bookingControllers.getUserSpecificBookings)
 
-export const bookingRoutes = router;
+export const bookingRoutes = router
