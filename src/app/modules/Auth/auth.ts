@@ -70,7 +70,10 @@ export const authUser = (...userAuth: TUserRole[]) => {
           })
         }
   
-        req.user = decoded as JwtPayload
+        const {email} = decoded as JwtPayload
+
+        req.user = email;
+  
         next()
       })
     }) //

@@ -5,6 +5,8 @@ import { carModels } from './car.model'
 import { priceCalculate } from './car.utils'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
+import mongoose from 'mongoose'
+
 
 const createCarIntoDB = async (payload: TCar) => {
   const result = await carModels.carModel.create(payload)
@@ -22,12 +24,29 @@ const getSingleCarFromDB = async (id: string) => {
 }
 
 const updateCarFromDB = async (id: string, payload: TCar) => {
-  const result = await carModels.carModel.findByIdAndUpdate(id, {
-    new: true,
-    payload,
-    runValidators: true,
-  })
-  return result
+
+
+    const { features, ...carInfo } = payload;
+
+    
+
+    
+    const updateQuery: any = { $set: carInfo };
+  
+    if (features) {
+      updateQuery.$push = { features: { $each: features } }
+    }
+  
+    const result = await carModels.carModel.findByIdAndUpdate(id, updateQuery, {
+      timestamps: true,
+      new: true,
+      runValidators: true,
+    })
+
+
+
+    return result
+
 }
 
 const deleteCarFromDB = async (id: string) => {
@@ -57,7 +76,7 @@ const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
       endTime,
       totalCost,
     },
-    { new: true },
+    { new: true, runValidators: true }
   )
     .populate('user')
     .populate('car')
@@ -66,7 +85,7 @@ const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
 }
 
 const softDeleteCarFromDB = async (id: string) => {
-  console.log(softDeleteCarFromDB)
+
   const result = await carModels.carModel.findByIdAndUpdate(id, {
     isDeleted: true,
   })

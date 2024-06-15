@@ -10,7 +10,7 @@ const router = express.Router()
 router.post(
   '/',
   authUser(USER_ROLE.USER as TUserRole),
-
+  validateRequest(bookingValidation.bookingValidationSchema),
   bookingControllers.createBooking,
 )
 
@@ -20,6 +20,6 @@ router.get(
   bookingControllers.getBookings,
 )
 
-router.get("/my-bookings", bookingControllers.getUserSpecificBookings)
+router.get('/my-bookings', authUser(USER_ROLE.USER as TUserRole) , bookingControllers.getUserSpecificBookings)
 
 export const bookingRoutes = router

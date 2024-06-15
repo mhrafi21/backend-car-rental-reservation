@@ -12,6 +12,7 @@ const createUserIntoDB = async (payload: TUser) => {
 }
 
 const loginUserFromDB = async (payload: TUser) => {
+  
   const result = await User.findOne({
     email: payload?.email,
     password: payload?.password,
