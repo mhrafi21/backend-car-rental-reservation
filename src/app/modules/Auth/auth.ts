@@ -47,7 +47,8 @@ export const auth = (...adminAuth: TUserRole[]) => {
           })
         }
 
-        req.user = decoded as JwtPayload
+        req.user = decoded as JwtPayload;
+
         next()
       },
     )
@@ -94,9 +95,7 @@ export const authUser = (...userAuth: TUserRole[]) => {
           })
         }
 
-        const { email } = decoded as JwtPayload
-
-        req.user = email
+        req.user = decoded as JwtPayload;
 
         next()
       },

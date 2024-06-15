@@ -80,7 +80,8 @@ const updateCar = catchAsync(async (req, res) => {
 })
 
 const updateBookingCar = catchAsync(async (req, res) => {
-  const { bookingId, endTime } = req.body
+  const { bookingId, endTime } = req.body;
+ 
   const result = await carServices.updateBookingCarIntoDB(
     bookingId as string,
     endTime as string,

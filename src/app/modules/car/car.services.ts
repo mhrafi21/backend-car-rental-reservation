@@ -44,11 +44,13 @@ const deleteCarFromDB = async (id: string) => {
   return result
 }
 
-const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
-  const booking = await bookingModels.BookingModel.findById(bookingId as string)
+const updateBookingCarIntoDB = async (id: string, endTime: string) => {
+
+  const booking = await bookingModels.BookingModel.findById(id as string)
     .populate('car')
     .populate('user')
 
+  
   if (!booking) {
     noDataFound({
       success: false,
@@ -58,10 +60,10 @@ const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
     })
   }
 
-  const totalCost = priceCalculate(booking as TBooking, endTime as string)
+  const totalCost = priceCalculate(booking as TBooking, endTime as string);
 
   const result = await bookingModels.BookingModel.findByIdAndUpdate(
-    bookingId,
+    id,
     {
       endTime,
       totalCost,

@@ -7,6 +7,7 @@ import { carValidation } from './car.validation'
 
 import { USER_ROLE } from '../user/user.constant'
 import { auth } from '../Auth/auth'
+import { bookingValidation } from '../booking/booking.validation'
 
 const router = express.Router()
 
@@ -21,7 +22,7 @@ router.get('/', carController.getAllCar)
 
 router.get('/:id', carController.getSingleCar)
 
-router.put('/:id', auth(USER_ROLE.ADMIN as TUserRole), carController.updateCar)
+router.put('/:id', auth(USER_ROLE.ADMIN as TUserRole),validateRequest(carValidation.updateCarValidationSchema), carController.updateCar)
 
 router.delete('/:id', carController.deleteCar)
 
