@@ -5,8 +5,6 @@ import { carModels } from './car.model'
 import { priceCalculate } from './car.utils'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
-import mongoose from 'mongoose'
-
 
 const createCarIntoDB = async (payload: TCar) => {
   const result = await carModels.carModel.create(payload)
@@ -14,39 +12,31 @@ const createCarIntoDB = async (payload: TCar) => {
 }
 
 const getAllCarFromDB = async () => {
-  const result = await carModels.carModel.find({})
+  const result = await carModels.carModel.find({});
   return result
 }
 
 const getSingleCarFromDB = async (id: string) => {
   const result = await carModels.carModel.findById(id)
-  return result
+  return result;
 }
 
 const updateCarFromDB = async (id: string, payload: TCar) => {
+  const { features, ...carInfo } = payload
 
+  const updateQuery: any = { $set: carInfo }
 
-    const { features, ...carInfo } = payload;
+  if (features) {
+    updateQuery.$push = { features: { $each: features } }
+  }
 
-    
+  const result = await carModels.carModel.findByIdAndUpdate(id, updateQuery, {
+    timestamps: true,
+    new: true,
+    runValidators: true,
+  })
 
-    
-    const updateQuery: any = { $set: carInfo };
-  
-    if (features) {
-      updateQuery.$push = { features: { $each: features } }
-    }
-  
-    const result = await carModels.carModel.findByIdAndUpdate(id, updateQuery, {
-      timestamps: true,
-      new: true,
-      runValidators: true,
-    })
-
-
-
-    return result
-
+  return result
 }
 
 const deleteCarFromDB = async (id: string) => {
@@ -76,7 +66,7 @@ const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
       endTime,
       totalCost,
     },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   )
     .populate('user')
     .populate('car')
@@ -85,7 +75,6 @@ const updateBookingCarIntoDB = async (bookingId: string, endTime: string) => {
 }
 
 const softDeleteCarFromDB = async (id: string) => {
-
   const result = await carModels.carModel.findByIdAndUpdate(id, {
     isDeleted: true,
   })

@@ -2,7 +2,6 @@ import { JwtPayload } from 'jsonwebtoken';
 import httpStatus from 'http-status'
 import catchAsync from '../../utils/catchAsync'
 import sendResponse from '../../utils/sendResponse'
-import { TBooking } from './booking.interface'
 import { bookingServices } from './booking.services'
 
 const createBooking = catchAsync(async (req, res) => {
@@ -21,8 +20,18 @@ const createBooking = catchAsync(async (req, res) => {
 })
 
 const getBookings = catchAsync(async (req, res) => {
-  const { carId, date } = req.query
-  const result = await bookingServices.getBookingsFromDB(carId, date)
+
+  const result = await bookingServices.getBookingsFromDB();
+
+  if(!result?.length){
+    sendResponse(res,{
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
+      data: result,
+    })
+  }
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -36,6 +45,16 @@ const getUserSpecificBookings = catchAsync(async (req, res) => {
   const result = await bookingServices.getUserSpecificBookingsFromDB(
     email
   )
+
+  if(!result?.length){
+    sendResponse(res,{
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No Data Found',
+      data: result,
+    })
+  }
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

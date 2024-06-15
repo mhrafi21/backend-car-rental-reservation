@@ -16,65 +16,90 @@ export const auth = (...adminAuth: TUserRole[]) => {
     const token = tokenWithBearer?.split(' ')[1]
 
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
+      res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        statusCode: httpStatus.UNAUTHORIZED,
+        message: 'You have no access to this route',
+      })
     }
 
     // Checking if the token is valid
-    jwt.verify(token, config.JWT_SECRET as string, function (err, decoded) {
-      if (err) {
-        throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
-      }
-      // decoded undefined
-
-      let { role } = decoded as JwtPayload
-
-      if (adminAuth && !adminAuth.includes(role)) {
-        res.status(httpStatus.UNAUTHORIZED).json({
-          success: true,
-          statusCode: httpStatus.UNAUTHORIZED,
-          message: 'You have no access to this route',
-        })
-      }
-
-      req.user = decoded as JwtPayload
-      next()
-    })
-  }) //
-}
-
-export const authUser = (...userAuth: TUserRole[]) => {
-    return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-      // if the token is send from the client
-  
-      const tokenWithBearer = req.headers.authorization
-      const token = tokenWithBearer?.split(' ')[1]
-  
-      if (!token) {
-        throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
-      }
-  
-      // Checking if the token is valid
-      jwt.verify(token, config.JWT_SECRET as string, function (err, decoded) {
+    jwt.verify(
+      token as string,
+      config.JWT_SECRET as string,
+      function (err, decoded) {
         if (err) {
-          throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
-        }
-        // decoded undefined
-  
-        let { role } = decoded as JwtPayload
-  
-        if (userAuth && !userAuth.includes(role)) {
           res.status(httpStatus.UNAUTHORIZED).json({
-            success: true,
+            success: false,
             statusCode: httpStatus.UNAUTHORIZED,
             message: 'You have no access to this route',
           })
         }
-  
-        const {email} = decoded as JwtPayload
+        // decoded undefined
 
-        req.user = email;
-  
+        let { role } = decoded as JwtPayload
+
+        if (adminAuth && !adminAuth.includes(role)) {
+          res.status(httpStatus.UNAUTHORIZED).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: 'You have no access to this route',
+          })
+        }
+
+        req.user = decoded as JwtPayload
         next()
+      },
+    )
+  }) //
+}
+
+export const authUser = (...userAuth: TUserRole[]) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    // if the token is send from the client
+
+    const tokenWithBearer = req.headers.authorization
+    const token = tokenWithBearer?.split(' ')[1]
+
+    if (!token) {
+      res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        statusCode: httpStatus.UNAUTHORIZED,
+        message: 'You have no access to this route',
       })
-    }) //
-  }
+    }
+
+    // Checking if the token is valid
+
+    jwt.verify(
+      token as string,
+      config.JWT_SECRET as string,
+      function (err, decoded) {
+        if (err) {
+          res.status(httpStatus.UNAUTHORIZED).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: 'You have no access to this route',
+          })
+        }
+        // decoded undefined
+
+        let { role } = decoded as JwtPayload
+
+        if (userAuth && !userAuth.includes(role)) {
+          res.status(httpStatus.UNAUTHORIZED).json({
+            success: false,
+            statusCode: httpStatus.UNAUTHORIZED,
+            message: 'You have no access to this route',
+          })
+        }
+
+        const { email } = decoded as JwtPayload
+
+        req.user = email
+
+        next()
+      },
+    )
+  }) //
+}

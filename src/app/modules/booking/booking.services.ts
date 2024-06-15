@@ -10,9 +10,10 @@ const createBookingIntoDB = async (payload: TBooking) => {
 }
 
 const getBookingsFromDB = async () => {
-  const result = await bookingModels.BookingModel.find()
+  const result = await bookingModels.BookingModel.find({})
     .populate('user')
     .populate('car')
+    
   return result
 }
 
