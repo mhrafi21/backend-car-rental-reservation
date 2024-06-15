@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
 import httpStatus from 'http-status'
-import AppError from '../../errors/AppError'
 import { TUser } from './user.interface'
 import { User } from './user.model'
 import config from '../../config'
+import noDataFound from '../../utils/notDataFound'
 
 const createUserIntoDB = async (payload: TUser) => {
   // create a user object
@@ -19,18 +19,23 @@ const loginUserFromDB = async (payload: TUser) => {
   })
 
   if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User is not found!')
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No data found',
+      data: result
+    })
   }
 
   // generate token for a login user
 
-  const SignToken = jwt.sign(
+  const SignInToken = jwt.sign(
     { email: result?.email, role: result?.role },
     config.JWT_SECRET as string,
     { expiresIn: '5d' },
   )
 
-  const token = `Bearer ${SignToken}`
+  const token = `Bearer ${SignInToken}`
 
   return {
     result,
