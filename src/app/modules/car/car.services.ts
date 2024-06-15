@@ -12,19 +12,19 @@ const createCarIntoDB = async (payload: TCar) => {
 }
 
 const getAllCarFromDB = async () => {
-  const result = await carModels.carModel.find({});
+  const result = await carModels.carModel.find({})
   return result
 }
 
 const getSingleCarFromDB = async (id: string) => {
   const result = await carModels.carModel.findById(id)
-  return result;
+  return result
 }
 
 const updateCarFromDB = async (id: string, payload: TCar) => {
   const { features, ...carInfo } = payload
 
-  const updateQuery: any = { $set: carInfo }
+  const updateQuery : Partial<any> = { $set: carInfo }
 
   if (features) {
     updateQuery.$push = { features: { $each: features } }
@@ -45,12 +45,10 @@ const deleteCarFromDB = async (id: string) => {
 }
 
 const updateBookingCarIntoDB = async (id: string, endTime: string) => {
-
   const booking = await bookingModels.BookingModel.findById(id as string)
     .populate('car')
     .populate('user')
 
-  
   if (!booking) {
     noDataFound({
       success: false,
@@ -60,7 +58,7 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
     })
   }
 
-  const totalCost = priceCalculate(booking as TBooking, endTime as string);
+  const totalCost = priceCalculate(booking as TBooking, endTime as string)
 
   const result = await bookingModels.BookingModel.findByIdAndUpdate(
     id,

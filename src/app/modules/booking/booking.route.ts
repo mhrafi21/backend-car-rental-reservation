@@ -20,6 +20,10 @@ router.get(
   bookingControllers.getBookings,
 )
 
-router.get('/my-bookings', authUser(USER_ROLE.USER as TUserRole) , bookingControllers.getUserSpecificBookings)
+router.get(
+  '/my-bookings',
+  authUser(USER_ROLE.USER as TUserRole),
+  bookingControllers.getUserSpecificBookings,
+)
 
 export const bookingRoutes = router

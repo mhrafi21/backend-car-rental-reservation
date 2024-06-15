@@ -8,7 +8,7 @@ const bookingValidationSchema = z.object({
     user: z.string().optional(),
     car: z.string().optional(),
     startTime: z.string({
-      invalid_type_error: "start time must be string"
+      invalid_type_error: 'start time must be string',
     }),
     endTime: z.string().nullable().default(null),
     totalCost: z.number().nullable().default(0),

@@ -1,6 +1,5 @@
 import { TUserRole } from './../user/user.interface'
 import httpStatus from 'http-status'
-import AppError from '../../errors/AppError'
 
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from '../../config'
@@ -37,7 +36,7 @@ export const auth = (...adminAuth: TUserRole[]) => {
         }
         // decoded undefined
 
-        let { role } = decoded as JwtPayload
+        const { role } = decoded as JwtPayload
 
         if (adminAuth && !adminAuth.includes(role)) {
           res.status(httpStatus.UNAUTHORIZED).json({
@@ -47,7 +46,7 @@ export const auth = (...adminAuth: TUserRole[]) => {
           })
         }
 
-        req.user = decoded as JwtPayload;
+        req.user = decoded as JwtPayload
 
         next()
       },
@@ -85,7 +84,7 @@ export const authUser = (...userAuth: TUserRole[]) => {
         }
         // decoded undefined
 
-        let { role } = decoded as JwtPayload
+        const { role } = decoded as JwtPayload
 
         if (userAuth && !userAuth.includes(role)) {
           res.status(httpStatus.UNAUTHORIZED).json({
@@ -95,7 +94,7 @@ export const authUser = (...userAuth: TUserRole[]) => {
           })
         }
 
-        req.user = decoded as JwtPayload;
+        req.user = decoded as JwtPayload
 
         next()
       },

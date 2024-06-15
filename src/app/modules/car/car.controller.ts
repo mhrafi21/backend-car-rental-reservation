@@ -7,8 +7,8 @@ import { bookingServices } from '../booking/booking.services'
 
 const createCar = catchAsync(async (req, res) => {
   const result = await carServices.createCarIntoDB(req.body as TCar)
-  if(!result){
-    sendResponse(res,{
+  if (!result) {
+    sendResponse(res, {
       statusCode: httpStatus.NOT_FOUND,
       success: false,
       message: 'No Data Found',
@@ -24,11 +24,10 @@ const createCar = catchAsync(async (req, res) => {
 })
 
 const getAllCar = catchAsync(async (req, res) => {
-  const result = await carServices.getAllCarFromDB();
+  const result = await carServices.getAllCarFromDB()
 
-
-  if(!result?.length){
-    sendResponse(res,{
+  if (!result?.length) {
+    sendResponse(res, {
       success: false,
       statusCode: httpStatus.NOT_FOUND,
       message: 'No Data Found',
@@ -45,9 +44,8 @@ const getAllCar = catchAsync(async (req, res) => {
 })
 
 const getSingleCar = catchAsync(async (req, res) => {
-  const result = await carServices.getSingleCarFromDB(req.params.id);
+  const result = await carServices.getSingleCarFromDB(req.params.id)
 
- 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -57,7 +55,7 @@ const getSingleCar = catchAsync(async (req, res) => {
 })
 
 const deleteCar = catchAsync(async (req, res) => {
-  const result = await carServices.deleteCarFromDB(req.params.id);
+  const result = await carServices.deleteCarFromDB(req.params.id)
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -80,8 +78,8 @@ const updateCar = catchAsync(async (req, res) => {
 })
 
 const updateBookingCar = catchAsync(async (req, res) => {
-  const { bookingId, endTime } = req.body;
- 
+  const { bookingId, endTime } = req.body
+
   const result = await carServices.updateBookingCarIntoDB(
     bookingId as string,
     endTime as string,

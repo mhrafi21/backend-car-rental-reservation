@@ -1,4 +1,4 @@
-import { TUser, TUserRole } from './../user/user.interface'
+import { TUserRole } from './../user/user.interface'
 import express from 'express'
 
 import validateRequest from '../../middlewares/validateRequest'
@@ -7,7 +7,6 @@ import { carValidation } from './car.validation'
 
 import { USER_ROLE } from '../user/user.constant'
 import { auth } from '../Auth/auth'
-import { bookingValidation } from '../booking/booking.validation'
 
 const router = express.Router()
 
@@ -22,11 +21,16 @@ router.get('/', carController.getAllCar)
 
 router.get('/:id', carController.getSingleCar)
 
-router.put('/:id', auth(USER_ROLE.ADMIN as TUserRole),validateRequest(carValidation.updateCarValidationSchema), carController.updateCar)
+router.put(
+  '/:id',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  validateRequest(carValidation.updateCarValidationSchema),
+  carController.updateCar,
+)
 
 router.delete('/:id', carController.deleteCar)
 
-router.patch( 
+router.patch(
   '/return',
   auth(USER_ROLE.ADMIN as TUserRole),
   carController.updateBookingCar,

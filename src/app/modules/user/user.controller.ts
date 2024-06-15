@@ -5,7 +5,7 @@ import sendResponse from '../../utils/sendResponse'
 import { TUser } from './user.interface'
 import httpStatus from 'http-status'
 
-const createUser = catchAsync(async (req, res, next) => {
+const createUser = catchAsync(async (req, res) => {
   const result = await createUserIntoDB(req.body as TUser)
 
   sendResponse(res, {
