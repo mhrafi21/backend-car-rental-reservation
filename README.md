@@ -18,7 +18,7 @@ https://backend-car-rental-reservation.vercel.app/
 - Get A Car (Also can see the single cars details by searching based on the car id and available date)
 - Update A Car (Only Accessible to the Admin, Authorized by JWT token)
 - Delete A Car (Only Accessible to the Admin, Authorized by JWT token)
-- Return The Car (When users will return the renting car, cost will be added by admin based on the hours and this car again available for others.)
+- Return The Car (When users will return the renting car, payable amount will be added by admin based on the hours and this car again available for others.)
 
 #### <span style="font-size: 24px;">Booking Management</span>
 - Get All Bookings(Only An admin can see all booking and maintaining the booking cars.)
@@ -26,6 +26,7 @@ https://backend-car-rental-reservation.vercel.app/
 - Get User's Bookings(Users also can see their booking cars.);
 
 ## <span style="font-size: 24px;">Technologies Used</span>
+- JavaScript
 - Node.js
 - Express.js
 - Mongoose
