@@ -24,7 +24,7 @@ Make sure you have the following installed on your machine:
 - [npm](https://www.npmjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 
-### <span style="font-size: 20px;">Setup</span>
+## <span style="font-size: 24px;">Installation</span>
 1. Clone the repository:
    ```bash
    git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
