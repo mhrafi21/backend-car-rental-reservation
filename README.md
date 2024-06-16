@@ -31,19 +31,22 @@ Make sure you have the following installed on your machine:
 
 2. Navigate to the project directory:
 
- cd project-name
+   ```bash
+   cd project-name
 
 3. Install dependencies:
 
-  npm install
+   ```bash
+   npm install
 
 4. Running the Server:
 
-  Make sure MongoDB is running.
-
+   ```bash
+   Make sure MongoDB is running.
+ 
 5. Start the server:
 
-   ```bash
+    ```bash
     npm run start:dev
 
 ### <span style="font-size: 20px;">Contact</span>
