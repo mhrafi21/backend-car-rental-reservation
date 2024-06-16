@@ -40,14 +40,17 @@ const createBookingIntoDB = async (email: string, payload: TBooking) => {
     .populate('user')
     .populate('car')
 
-  return result;
+  return result
 }
 
-const getBookingsFromDB = async () => {
-  const result = await bookingModels.BookingModel.find()
+const getBookingsFromDB = async (query: Record<string, unknown>) => {
+
+
+  
+  const result = await bookingModels.BookingModel
+    .find({})
     .populate('user')
     .populate('car')
-
   return result
 }
 
