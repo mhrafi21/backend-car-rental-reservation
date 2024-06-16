@@ -31,17 +31,15 @@ Make sure you have the following installed on your machine:
 
 2. Navigate to the project directory:
 
-  ```bash
  cd project-name
 
 3. Install dependencies:
 
-   ```bash
   npm install
 
 4. Running the Server:
 
-Make sure MongoDB is running.
+  Make sure MongoDB is running.
 
 5. Start the server:
 
@@ -50,5 +48,5 @@ Make sure MongoDB is running.
 
 ### <span style="font-size: 20px;">Contact</span>
 - [LinkedIn](www.linkedin.com/in/mahdi-hasan-rafi-7215a42a0)
-For inquiries, email Mahdi Hasan Rafi at [mahdi71078rafi@gmail.com](mailto:mahdi71078rafi@gmail.com)
+- For inquiries, email Mahdi Hasan Rafi at [mahdi71078rafi@gmail.com](mailto:mahdi71078rafi@gmail.com)
 
