@@ -24,7 +24,7 @@ const getSingleCarFromDB = async (id: string) => {
 const updateCarFromDB = async (id: string, payload: TCar) => {
   const { features, ...carInfo } = payload
 
-  const updateQuery : Partial<any> = { $set: carInfo }
+  const updateQuery: Partial<any> = { $set: carInfo }
 
   if (features) {
     updateQuery.$push = { features: { $each: features } }
@@ -49,29 +49,29 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
     .populate('car')
     .populate('user')
 
-  if (!booking) {
-    noDataFound({
-      success: false,
-      statusCode: httpStatus.NOT_FOUND,
-      message: 'No data Found',
-      data: booking,
-    })
-  }
-
   const totalCost = priceCalculate(booking as TBooking, endTime as string)
 
   const result = await bookingModels.BookingModel.findByIdAndUpdate(
-    id,
+    booking?._id,
     {
-      'car.status': 'available',
-      endTime,
-      totalCost,
-     
+      $set: {
+        endTime,
+        totalCost,
+      },
     },
     { new: true, runValidators: true },
   )
     .populate('user')
     .populate('car')
+
+   await carModels.carModel.findByIdAndUpdate(
+    result?.car,
+    {
+      $set: {
+        status: 'available',
+      },
+    },
+  )
 
   return result
 }

@@ -43,7 +43,7 @@ const createBookingIntoDB = async (email: string, payload: TBooking) => {
   return result;
 }
 
-const getBookingsFromDB = async (query: Record<string, unknown>) => {
+const getBookingsFromDB = async () => {
   const result = await bookingModels.BookingModel.find()
     .populate('user')
     .populate('car')
