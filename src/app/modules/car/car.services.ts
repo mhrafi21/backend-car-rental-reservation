@@ -63,8 +63,10 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
   const result = await bookingModels.BookingModel.findByIdAndUpdate(
     id,
     {
+      'car.status': 'available',
       endTime,
       totalCost,
+     
     },
     { new: true, runValidators: true },
   )

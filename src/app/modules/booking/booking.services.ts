@@ -4,7 +4,7 @@ import { bookingModels } from './booking.model'
 import { JwtPayload } from 'jsonwebtoken'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
-import QueryBuilder from '../../builder/QueryBuilder'
+import { carModels } from '../car/car.model'
 
 const createBookingIntoDB = async (email: string, payload: TBooking) => {
   const user = await User.findOne({ email: email })
@@ -18,18 +18,32 @@ const createBookingIntoDB = async (email: string, payload: TBooking) => {
     })
   }
 
-  const result = await bookingModels.BookingModel.create({
+  const bookingCar = await bookingModels.BookingModel.create({
     ...payload,
     user: user?._id,
   })
 
-  return result
+  const findOne = await carModels.carModel.findByIdAndUpdate(bookingCar?.car, {
+    status: 'unavailable',
+  })
+
+  if (!findOne) {
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No data found',
+      data: findOne,
+    })
+  }
+
+  const result = await bookingModels.BookingModel.findById(bookingCar._id)
+    .populate('user')
+    .populate('car')
+
+  return result;
 }
 
 const getBookingsFromDB = async (query: Record<string, unknown>) => {
-
-
-
   const result = await bookingModels.BookingModel.find()
     .populate('user')
     .populate('car')

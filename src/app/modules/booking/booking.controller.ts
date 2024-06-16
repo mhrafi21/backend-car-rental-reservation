@@ -14,8 +14,9 @@ const createBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    data: result,
     message: 'Booking created successfully!',
+    data: result,
+
   })
 })
 

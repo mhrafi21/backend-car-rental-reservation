@@ -15,7 +15,7 @@ https://backend-car-rental-reservation.vercel.app/
 - npm Packages
 
 ## <span>Validation</span>
-- Mongoose: Use Mongoose as the Object Data Modeling (ODM) and validation library for MongoDB.
+- MongoDB: Use Mongoose as the Object Data Modeling (ODM) and validation library for MongoDB.
 - Zod: It's preferred for its type-safe and declarative approach to data validation in TypeScript applications, ensuring robust error handling and code reliability.
 
 ## <span style="font-size: 24px;">Installation</span>
