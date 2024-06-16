@@ -1,10 +1,10 @@
-
 import { User } from '../user/user.model'
 import { TBooking } from './booking.interface'
 import { bookingModels } from './booking.model'
 import { JwtPayload } from 'jsonwebtoken'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
+import QueryBuilder from '../../builder/QueryBuilder'
 
 const createBookingIntoDB = async (email: string, payload: TBooking) => {
   const user = await User.findOne({ email: email })
@@ -26,8 +26,11 @@ const createBookingIntoDB = async (email: string, payload: TBooking) => {
   return result
 }
 
-const getBookingsFromDB = async () => {
-  const result = await bookingModels.BookingModel.find({})
+const getBookingsFromDB = async (query: Record<string, unknown>) => {
+
+
+
+  const result = await bookingModels.BookingModel.find()
     .populate('user')
     .populate('car')
 

@@ -20,9 +20,10 @@ const createBooking = catchAsync(async (req, res) => {
 })
 
 const getBookings = catchAsync(async (req, res) => {
-  const result = await bookingServices.getBookingsFromDB()
 
-  if (!result?.length) {
+  const result = await bookingServices.getBookingsFromDB(req.query as Record<string,unknown>)
+
+  if (!result) {
     sendResponse(res, {
       success: false,
       statusCode: httpStatus.NOT_FOUND,
