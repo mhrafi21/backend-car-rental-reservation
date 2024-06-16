@@ -18,9 +18,9 @@ https://backend-car-rental-reservation.vercel.app/
 - Get A Car (Also can see the single cars details by searching based on the car id and available date)
 
 #### <span style="font-size: 24px;">Booking Management</span>
-- Get All Bookings(Only An admin can see all booking and maintaining the booking cars.)
-- Book a Car(A user books a car it will be unavailable for others until he/she return the car. user is authorized by JWT token)
-- Get User's Bookings(Users also can see their booking cars.);
+- Get All Bookings (Only An admin can see all booking and maintaining the booking cars.)
+- Book a Car ( When a user books a car, It's unavailable for others until he/she returns the car. user is authorized by JWT token)
+- Get User's Bookings (Users also can see their booking cars.);
 
 #### <span style="font-size: 24px;">Cars Management</span>
 - Update A Car (Only Accessible to the Admin, Authorized by JWT token)
