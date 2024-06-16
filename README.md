@@ -5,16 +5,19 @@ Live URL
 https://backend-car-rental-reservation.vercel.app/
 
 ## <span style="font-size: 24px;">Features</span>
-Feature 1
-Feature 2
-Feature 3
+
 
 ## <span style="font-size: 24px;">Technologies Used</span>
 - Node.js
 - Express.js
 - Mongoose
 - TypeScript
-- npm Packages:
+- npm Packages
+
+## <span>Validation</span>
+- Mongoose: Use Mongoose as the Object Data Modeling (ODM) and validation library for MongoDB.
+- Zod: It's preferred for its type-safe and declarative approach to data validation in TypeScript applications, ensuring robust error handling and code reliability.
+
 ## <span style="font-size: 24px;">Installation</span>
 To get a local copy up and running, follow these steps.
 
@@ -24,7 +27,7 @@ Make sure you have the following installed on your machine:
 - [npm](https://www.npmjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 
-## <span style="font-size: 24px;">Installation</span>
+## <span style="font-size: 24px;">Setup</span>
 1. Clone the repository:
    ```bash
    git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
