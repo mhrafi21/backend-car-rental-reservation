@@ -31,9 +31,11 @@ bash
 1. Clone the repository:
    ```bash
    git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
+
 Navigate to the project directory:
-bash
-cd project-name
+
+-- cd project-name
+
 Install dependencies:
 bash
 npm install
@@ -45,19 +47,10 @@ Make sure MongoDB is running.
 Start the server:
 bash
 
-npm run start:dev
-This will start the server in development mode using nodemon.
+bash npm run start:dev
 
-Example
-GET /api/example
-Description: Get example data.
 
-{
-  "message": "This is an example response"
-}
-
-***Contact
+### <span style="font-size: 20px;">Contact</span>
+- [LinkedIn](www.linkedin.com/in/mahdi-hasan-rafi-7215a42a0)
 Mahdi Hasan Rafi - mahdi71078rafi@gmail.com
-
-Project Live Link: https://backend-car-rental-reservation.vercel.app/
 
