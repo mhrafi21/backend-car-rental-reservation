@@ -30,21 +30,25 @@ Make sure you have the following installed on your machine:
    git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
 
 2. Navigate to the project directory:
+
   ```bash
  cd project-name
 
 3. Install dependencies:
+
    ```bash
   npm install
 
-4. Running the Server
+4. Running the Server:
+
 Make sure MongoDB is running.
 
 5. Start the server:
+
    ```bash
     npm run start:dev
 
 ### <span style="font-size: 20px;">Contact</span>
 - [LinkedIn](www.linkedin.com/in/mahdi-hasan-rafi-7215a42a0)
-Mahdi Hasan Rafi - mahdi71078rafi@gmail.com
+For inquiries, email Mahdi Hasan Rafi at [mahdi71078rafi@gmail.com](mailto:mahdi71078rafi@gmail.com)
 
