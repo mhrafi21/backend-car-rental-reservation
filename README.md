@@ -1,5 +1,5 @@
 ## <span style="font-size: 24px;">Introduction</span>
-Provide a brief introduction to your project here. Describe what your project does and its purpose.
+This is a backend for a Car Renting System where user can rent cars and admin can manage reservation cars.
 
 Live URL
 https://backend-car-rental-reservation.vercel.app/
@@ -30,7 +30,7 @@ bash
 ### <span style="font-size: 20px;">Setup</span>
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/project-name.git
+   git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
 Navigate to the project directory:
 bash
 cd project-name
@@ -45,10 +45,8 @@ Make sure MongoDB is running.
 Start the server:
 bash
 
-npm run dev
+npm run start:dev
 This will start the server in development mode using nodemon.
-API Endpoints
-Describe your API endpoints here. Include request methods, endpoint URLs, parameters, and example responses.
 
 Example
 GET /api/example
