@@ -54,16 +54,6 @@ const getSingleCar = catchAsync(async (req, res) => {
   })
 })
 
-const deleteCar = catchAsync(async (req, res) => {
-  const result = await carServices.deleteCarFromDB(req.params.id)
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: 'Car deleted successfully',
-    data: result,
-  })
-})
-
 const updateCar = catchAsync(async (req, res) => {
   const result = await carServices.updateCarFromDB(
     req.params.id as string,
@@ -101,7 +91,7 @@ const updateBookingCar = catchAsync(async (req, res) => {
 })
 
 const getAllBookings = catchAsync(async (req, res) => {
-  const result = await bookingServices.getBookingsFromDB()
+  const result = await bookingServices.getBookingsFromDB(req.query)
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -111,7 +101,6 @@ const getAllBookings = catchAsync(async (req, res) => {
 })
 
 const softDeleteCar = catchAsync(async (req, res) => {
-  console.log(req.params.id)
   const result = await carServices.softDeleteCarFromDB(req.params.id as string)
   sendResponse(res, {
     success: true,
@@ -126,7 +115,6 @@ export const carController = {
   getAllCar,
   getSingleCar,
   updateCar,
-  deleteCar,
   updateBookingCar,
   getAllBookings,
   softDeleteCar,

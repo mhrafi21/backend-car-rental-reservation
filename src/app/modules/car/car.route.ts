@@ -28,8 +28,6 @@ router.put(
   carController.updateCar,
 )
 
-router.delete('/:id', carController.deleteCar)
-
 router.patch(
   '/return',
   auth(USER_ROLE.ADMIN as TUserRole),

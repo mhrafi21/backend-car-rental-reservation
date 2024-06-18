@@ -5,16 +5,26 @@ import { JwtPayload } from 'jsonwebtoken'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
 import { carModels } from '../car/car.model'
+import { searchQuery } from './booking.utils'
 
 const createBookingIntoDB = async (email: string, payload: TBooking) => {
   const user = await User.findOne({ email: email })
+
+if(!email){
+  noDataFound({
+    success: false,
+    statusCode: httpStatus.NOT_FOUND,
+    message: 'You have no access',
+    data: '',
+  })
+}
 
   if (!user) {
     noDataFound({
       success: false,
       statusCode: httpStatus.NOT_FOUND,
       message: 'No data found',
-      data: user,
+      data: '',
     })
   }
 
@@ -44,18 +54,21 @@ const createBookingIntoDB = async (email: string, payload: TBooking) => {
 }
 
 const getBookingsFromDB = async (query: Record<string, unknown>) => {
-
-
-  
-  const result = await bookingModels.BookingModel
-    .find({})
-    .populate('user')
-    .populate('car')
-  return result
+  return await searchQuery(query)
 }
 
 const getUserSpecificBookingsFromDB = async (email: JwtPayload) => {
   // Find the data record(s) associated with the user
+
+  if (!email) {
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'You have no access',
+      data: email,
+    })
+  }
+
   const user = await User.findOne({ email: email })
 
   if (!user) {

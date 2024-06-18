@@ -1,4 +1,4 @@
-import { TBooking } from './../booking/booking.interface'
+
 import { bookingModels } from '../booking/booking.model'
 import { TCar } from './car.interface'
 import { carModels } from './car.model'
@@ -39,17 +39,12 @@ const updateCarFromDB = async (id: string, payload: TCar) => {
   return result
 }
 
-const deleteCarFromDB = async (id: string) => {
-  const result = await carModels.carModel.findByIdAndDelete(id).exec()
-  return result
-}
-
 const updateBookingCarIntoDB = async (id: string, endTime: string) => {
   const booking = await bookingModels.BookingModel.findById(id as string)
     .populate('car')
     .populate('user')
 
-  const totalCost = priceCalculate(booking as TBooking, endTime as string)
+  const totalCost = priceCalculate(booking as any, endTime as string)
 
   const result = await bookingModels.BookingModel.findByIdAndUpdate(
     booking?._id,
@@ -64,22 +59,41 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
     .populate('user')
     .populate('car')
 
-   await carModels.carModel.findByIdAndUpdate(
+  const findOne = await carModels.carModel.findByIdAndUpdate(
     result?.car,
     {
-      $set: {
-        status: 'available',
-      },
+      status: 'available',
+    },
+    {
+      new: true,
+      runValidators: true,
     },
   )
 
-  return result
+  if (!findOne) {
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No data found',
+      data: findOne,
+    })
+  }
+
+  const bookingResult = await bookingModels.BookingModel.findById(id).populate("user").populate("car")
+  return bookingResult;
+
+
+
 }
 
 const softDeleteCarFromDB = async (id: string) => {
-  const result = await carModels.carModel.findByIdAndUpdate(id, {
-    isDeleted: true,
-  })
+  const result = await carModels.carModel.findByIdAndUpdate(
+    id,
+    {
+      isDeleted: true,
+    },
+    { new: true, runValidators: true },
+  )
 
   return result
 }
@@ -89,7 +103,6 @@ export const carServices = {
   getAllCarFromDB,
   getSingleCarFromDB,
   updateCarFromDB,
-  deleteCarFromDB,
   updateBookingCarIntoDB,
   softDeleteCarFromDB,
 }

@@ -11,7 +11,9 @@ const carValidationSchema = z.object({
     pricePerHour: z.number({
       invalid_type_error: 'price per hour must be number',
     }),
-    isDeleted: z.boolean({ invalid_type_error: 'it should be boolean' }),
+    isDeleted: z
+      .boolean({ invalid_type_error: 'it should be boolean' })
+      .default(false),
   }),
 })
 
@@ -57,6 +59,7 @@ const updateCarValidationSchema = z.object({
       .boolean({
         invalid_type_error: 'it should be boolean',
       })
+      .default(false)
       .optional(),
   }),
 })

@@ -14,7 +14,7 @@ const carSchema = new Schema<TCar>(
     },
     features: { type: [String], required: true },
     pricePerHour: { type: Number, required: true },
-    isDeleted: { type: Boolean, required: true },
+    isDeleted: { type: Boolean, required: true, default: false },
   },
   { timestamps: true },
 )
