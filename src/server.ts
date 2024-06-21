@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import app from './app'
 import config from './app/config'
 import { Server } from 'http'
+import AppError from './app/errors/AppError'
+import httpStatus from 'http-status'
 
 let server: Server
 
@@ -19,8 +21,9 @@ async function main() {
 
 main()
 // for async uncaught error handling
-process.on('unhandledRejection', () => {
-  console.log('Un handle rejection is detected, shutting down...')
+process.on('unhandledRejection', (reason,promise) => {
+  console.log(`Un handle rejection is detected at ${promise}, shutting down... reason:${reason}`)
+  
   if (server) {
     server.close(() => {
       process.exit(1)
@@ -30,7 +33,8 @@ process.on('unhandledRejection', () => {
 
 // synchronous uncaught error handling
 
-process.on('uncaughtException', () => {
-  console.log('UncoughtException is detected, shouting down')
+process.on('uncaughtException', (error) => {
+  console.log(`UncoughtException is detected at ${error}, shouting down`)
+  throw new AppError(httpStatus.INTERNAL_SERVER_ERROR,`UncaughtException: ${error}`)
   process.exit(1)
 })
