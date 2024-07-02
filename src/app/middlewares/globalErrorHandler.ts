@@ -7,7 +7,6 @@ import handleZodError from '../errors/handleZodError'
 import handleCastError from '../errors/handleCastError'
 import handleDuplicateError from '../errors/handleDuplicateError'
 import handleValidationError from '../errors/handleValidationError'
-import httpStatus from 'http-status'
 
 const globalErrorHandler: ErrorRequestHandler = (err,req,res,next) => {
   //setting default values

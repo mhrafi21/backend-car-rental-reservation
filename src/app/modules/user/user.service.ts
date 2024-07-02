@@ -45,11 +45,9 @@ const loginUserFromDB = async (payload: TUser) => {
     { expiresIn: '5d' },
   )
 
-  const token = `Bearer ${SignInToken}`
-
   return {
     result,
-    token,
+    token: SignInToken
   }
 }
 

@@ -13,6 +13,5 @@ export const priceCalculate = (booking: any, endTime: string) => {
   const diffMs = end.getTime() - start.getTime()
   const diffHours = diffMs / 1000 / 60 / 60
   const totalCost = diffHours * booking?.car?.pricePerHour
-
   return totalCost
 }

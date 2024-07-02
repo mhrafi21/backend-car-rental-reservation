@@ -6,6 +6,7 @@ import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
 import { carModels } from '../car/car.model'
 import { searchQuery } from './booking.utils'
+import AppError from '../../errors/AppError'
 
 const createBookingIntoDB = async (email: string, payload: TBooking) => {
   const user = await User.findOne({ email: email })
@@ -54,7 +55,12 @@ if(!email){
 }
 
 const getBookingsFromDB = async (query: Record<string, unknown>) => {
-  return await searchQuery(query)
+  try {
+    return await searchQuery(query);
+  } catch (error) {
+    throw new AppError(httpStatus.NOT_FOUND, `${error}`)
+  }
+  
 }
 
 const getUserSpecificBookingsFromDB = async (email: JwtPayload) => {

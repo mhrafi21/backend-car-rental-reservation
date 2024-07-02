@@ -16,7 +16,6 @@ app.use(cors())
 app.use('/api', router)
 
 app.get('/', async (req: Request, res: Response) => {
-  Promise.reject()
   res.send('The server is running')
 })
 

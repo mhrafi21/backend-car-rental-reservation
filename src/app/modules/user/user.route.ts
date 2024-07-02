@@ -11,6 +11,6 @@ router.post(
   UserController.createUser,
 )
 
-router.post('/login', UserController.loginUser)
+router.post('/signin', UserController.loginUser)
 
 export const userRouter = router
