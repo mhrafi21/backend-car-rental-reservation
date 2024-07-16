@@ -1,4 +1,3 @@
-
 import { bookingModels } from '../booking/booking.model'
 import { TCar } from './car.interface'
 import { carModels } from './car.model'
@@ -79,11 +78,10 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
     })
   }
 
-  const bookingResult = await bookingModels.BookingModel.findById(id).populate("user").populate("car")
-  return bookingResult;
-
-
-
+  const bookingResult = await bookingModels.BookingModel.findById(id)
+    .populate('user')
+    .populate('car')
+  return bookingResult
 }
 
 const softDeleteCarFromDB = async (id: string) => {

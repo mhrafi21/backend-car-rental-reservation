@@ -47,7 +47,7 @@ const loginUserFromDB = async (payload: TUser) => {
 
   return {
     result,
-    token: SignInToken
+    token: SignInToken,
   }
 }
 

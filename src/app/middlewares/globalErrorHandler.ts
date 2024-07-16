@@ -8,7 +8,7 @@ import handleCastError from '../errors/handleCastError'
 import handleDuplicateError from '../errors/handleDuplicateError'
 import handleValidationError from '../errors/handleValidationError'
 
-const globalErrorHandler: ErrorRequestHandler = (err,req,res,next) => {
+const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
   let statusCode = 500
   let message = 'Something went wrong!'

@@ -16,12 +16,13 @@ const createBooking = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     message: 'Booking created successfully!',
     data: result,
-
   })
 })
 
 const getBookings = catchAsync(async (req, res) => {
-  const result = await bookingServices.getBookingsFromDB(req.query as Record<string,unknown>)
+  const result = await bookingServices.getBookingsFromDB(
+    req.query as Record<string, unknown>,
+  )
   if (!result) {
     sendResponse(res, {
       success: false,

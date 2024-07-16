@@ -11,14 +11,14 @@ import AppError from '../../errors/AppError'
 const createBookingIntoDB = async (email: string, payload: TBooking) => {
   const user = await User.findOne({ email: email })
 
-if(!email){
-  noDataFound({
-    success: false,
-    statusCode: httpStatus.NOT_FOUND,
-    message: 'You have no access',
-    data: '',
-  })
-}
+  if (!email) {
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'You have no access',
+      data: '',
+    })
+  }
 
   if (!user) {
     noDataFound({
@@ -56,11 +56,10 @@ if(!email){
 
 const getBookingsFromDB = async (query: Record<string, unknown>) => {
   try {
-    return await searchQuery(query);
+    return await searchQuery(query)
   } catch (error) {
     throw new AppError(httpStatus.NOT_FOUND, `${error}`)
   }
-  
 }
 
 const getUserSpecificBookingsFromDB = async (email: JwtPayload) => {
