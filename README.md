@@ -57,10 +57,10 @@ Make sure you have the following installed on your machine:
 
 ## <span style="font-size: 24px;">Setup</span>
 
-1. Clone the repository(both client and server):
+1. Clone the repository:
 
    ```bash
-   git clone gh repo clone mhrafi21/campers-shop
+   git clone https://github.com/mhrafi21/backend-car-rental-reservation.git
 
    ```
 
@@ -78,10 +78,14 @@ Make sure you have the following installed on your machine:
 
    ```
 
-4. Start the server:
+4. Running the Server:
+
+   Make sure MongoDB is running.
+
+5. Start the server:
 
    ```bash
-   npm run dev
+   npm run start:dev
    ```
 
 ### <span style="font-size: 20px;">Contact</span>
