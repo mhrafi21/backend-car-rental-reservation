@@ -12,7 +12,7 @@ const router = express.Router()
 
 router.post(
   '/',
-  auth(USER_ROLE.ADMIN as TUserRole),
+  // auth(USER_ROLE.ADMIN as TUserRole),
   validateRequest(carValidation.carValidationSchema),
   carController.createCar,
 )

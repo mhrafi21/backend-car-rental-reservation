@@ -3,6 +3,7 @@ export type TCar = {
   description: string
   image: string
   category:string
+  reviews: number
   color: string
   isElectric: boolean
   status: string
