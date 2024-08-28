@@ -6,12 +6,13 @@ const userSchema = new Schema<TUser>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    confirmPassword: { type: String, required: true },
+    terms: { type: Boolean, required: true },
     role: {
       type: String,
       enum: ['user', 'admin'],
+      default: 'user',
     },
-    address: { type: String, required: true },
-    phone: { type: String, required: true },
   },
   { timestamps: true },
 )

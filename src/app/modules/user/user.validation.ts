@@ -8,13 +8,14 @@ const userValidationSchema = z.object({
     email: z.string({
       invalid_type_error: 'Email must be string',
     }),
-    role: z.enum(['user', 'admin']),
-    phone: z.string({
-      invalid_type_error: 'Phone must be string',
+    password: z.string({
+      invalid_type_error: 'Password must be string',
     }),
-    address: z.string({
-      invalid_type_error: 'Address must be string',
-    }),
+   confirmPassword: z.string({
+    invalid_type_error: "password must be string"
+   }),
+    terms: z.boolean(),
+    role: z.enum(['user', 'admin']).optional(),
   }),
 })
 

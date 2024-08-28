@@ -4,6 +4,8 @@ const carValidationSchema = z.object({
   body: z.object({
     name: z.string({ invalid_type_error: 'name must be string' }),
     description: z.string(),
+    image: z.string(),
+    category: z.string(),
     color: z.string(),
     isElectric: z.boolean(),
     status: z.enum(['available', 'unavailable']).default('available'),

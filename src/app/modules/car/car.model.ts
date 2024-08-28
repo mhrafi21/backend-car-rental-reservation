@@ -7,6 +7,8 @@ const carSchema = new Schema<TCar>(
     description: { type: String, required: true },
     color: { type: String, required: true },
     isElectric: { type: Boolean, required: true },
+    image: {type: String, required: true},
+    category: {type: String, required: true},
     status: {
       type: String,
       enum: ['available', 'unavailable'],
