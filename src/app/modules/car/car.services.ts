@@ -85,13 +85,10 @@ const updateBookingCarIntoDB = async (id: string, endTime: string) => {
 }
 
 const softDeleteCarFromDB = async (id: string) => {
-  const result = await carModels.carModel.findByIdAndUpdate(
-    id,
-    {
-      isDeleted: true,
-    },
-    { new: true, runValidators: true },
-  )
+  const result = await carModels.carModel.findByIdAndDelete(id, {
+    new: true,
+    runValidators: true,
+  })
 
   return result
 }

@@ -26,4 +26,10 @@ router.get(
   bookingControllers.getUserSpecificBookings,
 )
 
+router.patch(
+  '/:id',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  bookingControllers.updateBooking,
+)
+
 export const bookingRoutes = router

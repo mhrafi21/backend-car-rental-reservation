@@ -91,8 +91,29 @@ const getUserSpecificBookingsFromDB = async (email: JwtPayload) => {
   return result
 }
 
+const updateBookingStatusIntoDB = async (id: string, approvedBoolean : {approved: boolean}) => {
+  const approve = approvedBoolean;
+  const booking = await bookingModels.BookingModel.findByIdAndUpdate(
+    id,
+    { approved: approve.approved },
+    { new: true }
+  )
+
+  if (!booking) {
+    noDataFound({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'No data found',
+      data: booking,
+    })
+  }
+
+  return booking
+}
+
 export const bookingServices = {
   createBookingIntoDB,
   getBookingsFromDB,
   getUserSpecificBookingsFromDB,
+  updateBookingStatusIntoDB
 }

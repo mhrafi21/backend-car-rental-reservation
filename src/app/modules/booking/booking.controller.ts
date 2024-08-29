@@ -62,8 +62,31 @@ const getUserSpecificBookings = catchAsync(async (req, res) => {
   })
 })
 
+const updateBooking = catchAsync(async (req, res) => {
+  const { id } = req.params
+
+  const result = await bookingServices.updateBookingStatusIntoDB(id as string, req.body as boolean)
+
+  if (!result) {
+    sendResponse(res, {
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: 'Booking not found',
+      data: result,
+    })
+  }
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Booking updated successfully',
+    data: result,
+  })
+})
+
 export const bookingControllers = {
   createBooking,
   getBookings,
   getUserSpecificBookings,
+  updateBooking
 }
