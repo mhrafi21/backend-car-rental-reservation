@@ -11,6 +11,7 @@ export const searchQuery = async (query: Record<string, unknown>) => {
     searchCriteria.date = query?.date
   }
 
+
   const result = await bookingModels.BookingModel.find(searchCriteria)
     .populate('user')
     .populate('car')

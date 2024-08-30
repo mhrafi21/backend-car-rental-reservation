@@ -22,17 +22,19 @@ router.get('/', carController.getAllCar)
 router.get('/:id', carController.getSingleCar)
 
 router.put(
+  '/return',
+  auth(USER_ROLE.ADMIN as TUserRole),
+  carController.updateBookingCar,
+)
+
+router.put(
   '/:id',
   auth(USER_ROLE.ADMIN as TUserRole),
   validateRequest(carValidation.updateCarValidationSchema),
   carController.updateCar,
 )
 
-router.patch(
-  '/return',
-  auth(USER_ROLE.ADMIN as TUserRole),
-  carController.updateBookingCar,
-)
+
 
 router.delete(
   '/:id',

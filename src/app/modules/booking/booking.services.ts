@@ -91,12 +91,11 @@ const getUserSpecificBookingsFromDB = async (email: JwtPayload) => {
   return result
 }
 
-const updateBookingStatusIntoDB = async (id: string, approvedBoolean : {approved: boolean}) => {
-  const approve = approvedBoolean;
+const updateBookingStatusIntoDB = async (id: string, payload: boolean) => {
   const booking = await bookingModels.BookingModel.findByIdAndUpdate(
     id,
-    { approved: approve.approved },
-    { new: true }
+    { approved: payload },
+    { new: true },
   )
 
   if (!booking) {
@@ -107,13 +106,24 @@ const updateBookingStatusIntoDB = async (id: string, approvedBoolean : {approved
       data: booking,
     })
   }
-
   return booking
+}
+
+const cancelBookingIntoDB = async (id: string, payload: boolean) => {
+  const result = await bookingModels.BookingModel.findByIdAndUpdate(
+    id,
+    {isCancel: payload},
+    { new: true },
+  )
+  console.log(result)
+
+  return result
 }
 
 export const bookingServices = {
   createBookingIntoDB,
   getBookingsFromDB,
   getUserSpecificBookingsFromDB,
-  updateBookingStatusIntoDB
+  updateBookingStatusIntoDB,
+  cancelBookingIntoDB,
 }

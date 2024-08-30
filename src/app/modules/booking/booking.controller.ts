@@ -64,8 +64,8 @@ const getUserSpecificBookings = catchAsync(async (req, res) => {
 
 const updateBooking = catchAsync(async (req, res) => {
   const { id } = req.params
-
-  const result = await bookingServices.updateBookingStatusIntoDB(id as string, req.body as boolean)
+  const {approved} = req.body;
+  const result = await bookingServices.updateBookingStatusIntoDB(id as string, approved as boolean)
 
   if (!result) {
     sendResponse(res, {
@@ -84,9 +84,21 @@ const updateBooking = catchAsync(async (req, res) => {
   })
 })
 
+const cancelBooking = catchAsync(async(req, res) => {
+    const {isCancel} = req.body;
+  const result = await bookingServices.cancelBookingIntoDB(req.params.id as string , isCancel as boolean)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Booking canceled successfully',
+    data: result,
+  })
+})
+
 export const bookingControllers = {
   createBooking,
   getBookings,
   getUserSpecificBookings,
-  updateBooking
+  updateBooking,
+  cancelBooking
 }

@@ -4,6 +4,7 @@ import { carModels } from './car.model'
 import { priceCalculate } from './car.utils'
 import noDataFound from '../../utils/notDataFound'
 import httpStatus from 'http-status'
+import { TBooking, TCarBooking } from '../booking/booking.interface'
 
 const createCarIntoDB = async (payload: TCar) => {
   const result = await carModels.carModel.create(payload)

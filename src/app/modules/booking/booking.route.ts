@@ -32,4 +32,10 @@ router.patch(
   bookingControllers.updateBooking,
 )
 
+router.patch(
+  '/cancel/:id',
+  auth(USER_ROLE.USER as TUserRole),
+  bookingControllers.cancelBooking,
+)
+
 export const bookingRoutes = router
